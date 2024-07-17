@@ -35,7 +35,6 @@ def card_params(faker: Faker) -> Dict[str, str]:
     return dict(
         firstname=faker.first_name(),
         lastname=faker.last_name(),
-        nickname=faker.first_name(),
         birthday=faker.date(),
         company=faker.company(),
         job=faker.job(),

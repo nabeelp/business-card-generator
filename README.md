@@ -42,7 +42,6 @@ Available card parameters:
 | ----------- | --------------------- | -------- | ---------------------- |
 | `firstname` | `string`              | Yes      | First name             |
 | `lastname`  | `str`                 | Yes      | Last name              |
-| `nickname`  | `str`                 | No       | Nickname               |
 | `birthday`  | `date` (`YYYY-MM-DD`) | No       | Birthday               |
 | `company`   | `str`                 | No       | Company name           |
 | `job`       | `str`                 | No       | Job title              |

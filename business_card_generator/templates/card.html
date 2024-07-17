@@ -39,7 +39,7 @@
                 {% endif %}
 
                 <div class="media-content">
-                  <p class="title is-4 mb-1 p-name">{{ params.firstname }}{% if params.nickname %} "{{ params.nickname }}"{% endif %} {{ params.lastname }}</p>
+                  <p class="title is-4 mb-1 p-name">{{ params.firstname }} {{ params.lastname }}</p>
                   {% if params.company %}<span class="p-org">{{ params.company }}</span><br>{% endif %}
                   {% if params.job %}<span class="p-job-title">{{ params.job }}</span>{% endif %}
                 </div>

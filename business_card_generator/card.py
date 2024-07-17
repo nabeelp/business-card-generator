@@ -8,7 +8,6 @@ from segno import QRCode, helpers, make_qr
 class CardParams(BaseModel):
     firstname: str
     lastname: str
-    nickname: Optional[str] = None
     birthday: Optional[date] = None
     company: Optional[str] = None
     job: Optional[str] = None
@@ -70,7 +69,6 @@ class VCard(BaseCard):
         return helpers.make_vcard_data(
             name=f"{params.lastname};{params.firstname}",
             displayname=f"{params.firstname} {params.lastname}",
-            nickname=params.nickname,
             birthday=params.birthday,
             org=params.company,
             title=params.job,
@@ -95,7 +93,6 @@ class MeCard(BaseCard):
     def generate_data(self, params: CardParams) -> str:
         return helpers.make_mecard_data(
             name=f"{params.lastname},{params.firstname}",
-            nickname=params.nickname,
             birthday=params.birthday.strftime("%Y%m%d") if params.birthday else None,
             memo=params.company,
             email=params.email,
