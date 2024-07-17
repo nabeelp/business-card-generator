@@ -107,27 +107,6 @@
               </div>
             </div>
 
-            <div class="field is-horizontal is-hidden">
-              <div class="field-label is-normal">
-                <label class="label">Birthday</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="date"
-                      name="birthday"
-                      value="{{ request.args.birthday }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/calendar.svg') }}">
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="field is-horizontal">
               <div class="field-label is-normal">
                 <label class="label">Business</label>
@@ -202,118 +181,6 @@
               </div>
             </div>
 
-            <div class="field is-horizontal is-hidden">
-              <div class="field-label is-normal"></div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Website"
-                      name="website"
-                      value="{{ request.args.website }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/link.svg') }}">
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal is-hidden">
-              <div class="field-label is-normal">
-                <label class="label">Address</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Street"
-                      name="street"
-                      value="{{ request.args.street }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/map-pin.svg') }}">
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal is-hidden">
-              <div class="field-label is-normal"></div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="City"
-                      name="city"
-                      value="{{ request.args.city }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/map-pin.svg') }}">
-                    </span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Zipcode"
-                      name="zipcode"
-                      value="{{ request.args.zipcode }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/map-pin.svg') }}">
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-horizontal is-hidden">
-              <div class="field-label is-normal"></div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="State"
-                      name="state"
-                      value="{{ request.args.state }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/map-pin.svg') }}">
-                    </span>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="Country"
-                      name="country"
-                      value="{{ request.args.country }}"
-                    >
-                    <span class="icon is-small is-left">
-                      <img src="{{ url_for('static', filename='icons/map-pin.svg') }}">
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="field is-horizontal">
               <div class="field-label"></div>
               <div class="field-body">
@@ -335,20 +202,5 @@
     </div>
   </div>
 
-  <div class="hero-foot  is-hidden">
-    <footer class="footer">
-      <div class="content has-text-centered">
-        <p class="heading">
-          Source-code available on <a href="https://github.com/rclement/business-card-generator">GitHub</a>
-          <br />
-          Free open-source software under AGPLv3 License
-          <br />
-          Built using the <a href="https://flask.palletsprojects.com">Flask</a> framework.
-          <br />
-          Copyright (c) 2022-present <a href="https://romain-clement.net">Romain Clement</a>
-        </p>
-      </div>
-    </footer>
-  </div>
 </section>
 {%- endblock %}

@@ -64,36 +64,6 @@
                 </div>
                 {% endif %}
 
-                {% if params.website %}
-                <div class="block icon-text">
-                  <span class="icon">
-                    <img src="{{ url_for('static', filename='icons/link.svg') }}">
-                  </span>
-                  <a class="u-url" href="{{ params.website }}">{{ params.website }}</a>
-                </div>
-                {% endif %}
-
-                {% if params.birthday %}
-                <div class="block icon-text">
-                  <span class="icon">
-                    <img src="{{ url_for('static', filename='icons/calendar.svg') }}">
-                  </span>
-                  <span class="dt-bday">{{ params.birthday }}</span>
-                </div>
-                {% endif %}
-
-                {% if params.street or params.city or params.zipcode or params.state or params.country %}
-                <div class="icon-text p-adr h-adr">
-                  <span class="icon">
-                    <img src="{{ url_for('static', filename='icons/map-pin.svg') }}">
-                  </span>
-                  {% if params.street %}<div class="p-street-address">{{ params.street }}</div>,{% endif %}
-                  {% if params.city %}<span class="p-locality">{{ params.city }}</span>,{% endif %}
-                  {% if params.zipcode %}<span class="p-postal-code">{{ params.zipcode }}</span>,{% endif %}
-                  {% if params.state %}<span class="p-region">{{ params.state }}</span>,{% endif %}
-                  {% if params.country %}<span class="p-country-name">{{ params.country }}</span>{% endif %}
-                </div>
-                {% endif %}
               </div>
             </div>
 

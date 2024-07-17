@@ -50,21 +50,13 @@ def test_get_home_success(app: Flask, app_client: FlaskClient) -> None:
     assert "First Name" in data
     assert "Last Name" in data
     assert "Picture URL" in data
-    assert "Birthday" in data
 
     assert "Organization" in data
     assert "Company" in data
     assert "Job" in data
     assert "Email" in data
     assert "Phone" in data
-    assert "Website" in data
 
-    assert "Address" in data
-    assert "Street" in data
-    assert "City" in data
-    assert "Zipcode" in data
-    assert "State" in data
-    assert "Country" in data
     assert "Generate" in data
 
 
@@ -153,18 +145,11 @@ def test_get_vcard_svg_success(
 @pytest.mark.parametrize(
     "param",
     (
-        "birthday",
         "company",
         "job",
         "email",
         "phone",
-        "website",
         "picture",
-        "street",
-        "city",
-        "zipcode",
-        "state",
-        "country",
     ),
 )
 def test_get_vcard_svg_optional_empty_parameter(
@@ -178,7 +163,6 @@ def test_get_vcard_svg_optional_empty_parameter(
 @pytest.mark.parametrize(
     ("key", "value"),
     (
-        ("birthday", "unknown"),
         ("email", "aaa@bbb"),
     ),
 )
@@ -230,15 +214,8 @@ def test_get_vcard_vcf_success(
         f"ORG:{company}\r\n"
         f'EMAIL:{card_params["email"]}\r\n'
         f'TEL:{card_params["phone"]}\r\n'
-        f'URL:{card_params["website"]}\r\n'
         f'TITLE:{card_params["job"]}\r\n'
         f'PHOTO;VALUE=uri:{card_params["picture"]}\r\n'
-        f'ADR:;;{card_params["street"]};'
-        f'{card_params["city"]};'
-        f'{card_params["state"]};'
-        f'{card_params["zipcode"]};'
-        f'{card_params["country"]}\r\n'
-        f'BDAY:{card_params["birthday"]}\r\n'
         "END:VCARD\r\n"
     )
 
@@ -297,20 +274,12 @@ def test_get_mecard_vcf_success(
     )
     assert response.headers["content-disposition"] == "inline; filename=mecard.vcf"
 
-    website = card_params["website"].replace(":", "\\:")
     data = response.get_data().decode("utf-8")
     assert len(data) > 0
     assert (
         data == f'MECARD:N:{card_params["lastname"]},{card_params["firstname"]};'
         f'TEL:{card_params["phone"]};'
         f'EMAIL:{card_params["email"]};'
-        f'BDAY:{date.fromisoformat(card_params["birthday"]).strftime("%Y%m%d")};'
-        f"URL:{website};"
-        f'ADR:,,{card_params["street"]},'
-        f'{card_params["city"]},'
-        f'{card_params["state"]},'
-        f'{card_params["zipcode"]},'
-        f'{card_params["country"]};'
         f'MEMO:{card_params["company"]};'
         ";"
     )
