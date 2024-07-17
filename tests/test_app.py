@@ -49,7 +49,6 @@ def test_get_home_success(app: Flask, app_client: FlaskClient) -> None:
     assert "Profile" in data
     assert "First Name" in data
     assert "Last Name" in data
-    assert "Nickname" in data
     assert "Picture URL" in data
     assert "Birthday" in data
 
@@ -154,7 +153,6 @@ def test_get_vcard_svg_success(
 @pytest.mark.parametrize(
     "param",
     (
-        "nickname",
         "birthday",
         "company",
         "job",
@@ -235,7 +233,6 @@ def test_get_vcard_vcf_success(
         f'URL:{card_params["website"]}\r\n'
         f'TITLE:{card_params["job"]}\r\n'
         f'PHOTO;VALUE=uri:{card_params["picture"]}\r\n'
-        f'NICKNAME:{card_params["nickname"]}\r\n'
         f'ADR:;;{card_params["street"]};'
         f'{card_params["city"]};'
         f'{card_params["state"]};'
@@ -307,7 +304,6 @@ def test_get_mecard_vcf_success(
         data == f'MECARD:N:{card_params["lastname"]},{card_params["firstname"]};'
         f'TEL:{card_params["phone"]};'
         f'EMAIL:{card_params["email"]};'
-        f'NICKNAME:{card_params["nickname"]};'
         f'BDAY:{date.fromisoformat(card_params["birthday"]).strftime("%Y%m%d")};'
         f"URL:{website};"
         f'ADR:,,{card_params["street"]},'
