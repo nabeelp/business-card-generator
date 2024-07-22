@@ -27,16 +27,19 @@ def card_params_from_args() -> CardParams:
 
 
 @views_bp.get("/")
+@views_bp.get("/en/emea/cema/business-card-generator/")
 def get_home() -> str:
     return render_template("home.html")
 
 
 @views_bp.get("/card")
+@views_bp.get("/en/emea/cema/business-card-generator/card")
 def get_card() -> str:
     return render_template("card.html")
 
 
 @views_bp.get("/vcard.svg")
+@views_bp.get("/en/emea/cema/business-card-generator/vcard.svg")
 def get_vcard_svg() -> Response:
     card_params = card_params_from_args()
     vcard = VCard(card_params)
@@ -48,6 +51,7 @@ def get_vcard_svg() -> Response:
 
 
 @views_bp.get("/vcard.png")
+@views_bp.get("/en/emea/cema/business-card-generator/vcard.png")
 def get_vcard_png() -> Response:
     card_params = card_params_from_args()
     vcard = VCard(card_params)
@@ -59,6 +63,7 @@ def get_vcard_png() -> Response:
 
 
 @views_bp.get("/vcard.vcf")
+@views_bp.get("/en/emea/cema/business-card-generator/vcard.vcf")
 def get_vcard_vcf() -> Response:
     card_params = card_params_from_args()
     vcard = VCard(card_params)
@@ -70,6 +75,7 @@ def get_vcard_vcf() -> Response:
 
 
 @views_bp.get("/mecard.svg")
+@views_bp.get("/en/emea/cema/business-card-generator/mecard.svg")
 def get_mecard_svg() -> Response:
     card_params = card_params_from_args()
     mecard = MeCard(card_params)
@@ -81,6 +87,7 @@ def get_mecard_svg() -> Response:
 
 
 @views_bp.get("/mecard.png")
+@views_bp.get("/en/emea/cema/business-card-generator/mecard.png")
 def get_mecard_png() -> Response:
     card_params = card_params_from_args()
     mecard = MeCard(card_params)
@@ -92,6 +99,7 @@ def get_mecard_png() -> Response:
 
 
 @views_bp.get("/mecard.vcf")
+@views_bp.get("/en/emea/cema/business-card-generator/mecard.vcf")
 def get_mecard_vcf() -> Response:
     card_params = card_params_from_args()
     mecard = MeCard(card_params)
