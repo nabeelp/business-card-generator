@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+
+{%- block content %}
+<section class="hero">
+  <div class="hero-body">
+    <div class="container content">
+      <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+          <h1 class="has-text-centered">
+            {{ config.about.name }}
+          </h1>
+
+          <p class="has-text-centered">
+            Authentication Error
+          </p>
+
+          <dl>
+            {#
+            Flask automatically escapes these unsafe input, so we do not have to.
+            See also https://flask.palletsprojects.com/en/2.0.x/templating/#jinja-setup
+            #}
+            <dt>{{ result.get("error") }}</dt>
+            <dd>{{ result.get("error_description") }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endblock %}
