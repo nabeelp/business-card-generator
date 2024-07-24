@@ -8,23 +8,16 @@ from segno import QRCode, helpers, make_qr
 class CardParams(BaseModel):
     firstname: str
     lastname: str
-    birthday: Optional[date] = None
     company: Optional[str] = None
     job: Optional[str] = None
     email: Optional[EmailStr] = None
     phone: Optional[str] = None
-    website: Optional[HttpUrl] = None
     picture: Optional[HttpUrl] = None
-    street: Optional[str] = None
-    city: Optional[str] = None
-    zipcode: Optional[str] = None
-    state: Optional[str] = None
-    country: Optional[str] = None
 
     def __init__(__pydantic_self__, **data: Any) -> None:
         super().__init__(**data)
 
-    @validator("birthday", "email", "website", "picture", pre=True)
+    @validator("email", "picture", pre=True)
     def validate_empty(cls, value: Optional[str]) -> Optional[str]:
         return value or None
 
@@ -69,18 +62,11 @@ class VCard(BaseCard):
         return helpers.make_vcard_data(
             name=f"{params.lastname};{params.firstname}",
             displayname=f"{params.firstname} {params.lastname}",
-            birthday=params.birthday,
             org=params.company,
             title=params.job,
             email=params.email,
             phone=params.phone,
-            url=params.website,
             photo_uri=params.picture,
-            street=params.street,
-            city=params.city,
-            region=params.state,
-            zipcode=params.zipcode,
-            country=params.country,
         )
 
 
@@ -93,14 +79,7 @@ class MeCard(BaseCard):
     def generate_data(self, params: CardParams) -> str:
         return helpers.make_mecard_data(
             name=f"{params.lastname},{params.firstname}",
-            birthday=params.birthday.strftime("%Y%m%d") if params.birthday else None,
             memo=params.company,
             email=params.email,
             phone=params.phone,
-            url=params.website,
-            houseno=params.street,
-            city=params.city,
-            zipcode=params.zipcode,
-            prefecture=params.state,
-            country=params.country,
         )

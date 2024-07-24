@@ -42,18 +42,11 @@ Available card parameters:
 | ----------- | --------------------- | -------- | ---------------------- |
 | `firstname` | `string`              | Yes      | First name             |
 | `lastname`  | `str`                 | Yes      | Last name              |
-| `birthday`  | `date` (`YYYY-MM-DD`) | No       | Birthday               |
 | `company`   | `str`                 | No       | Company name           |
 | `job`       | `str`                 | No       | Job title              |
 | `email`     | `EmailStr`            | No       | E-mail address         |
 | `phone`     | `str`                 | No       | Phone number           |
-| `website`   | `HttpUrl`             | No       | Website URL            |
 | `picture`   | `HttpUrl`             | No       | Picture URL            |
-| `street`    | `str`                 | No       | Street number and name |
-| `city`      | `str`                 | No       | City                   |
-| `zipcode`   | `str`                 | No       | Zipcode                |
-| `state`     | `str`                 | No       | State or region        |
-| `country`   | `str`                 | No       | Country                |
 
 ## Deployment
 
