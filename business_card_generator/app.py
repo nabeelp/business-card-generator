@@ -1,11 +1,9 @@
-import identity.web
 import mimetypes
 import os
 
 from http import HTTPStatus
 from typing import Optional
-from flask import Blueprint, Flask, abort, redirect, render_template, request, session, send_file, url_for
-from flask_session import Session
+from flask import Blueprint, Flask, abort, redirect, render_template, request, send_file, url_for
 from pydantic import ValidationError
 from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.wrappers import Response
@@ -19,32 +17,12 @@ from .settings import Settings
 # ------------------------------------------------------------------------------
 
 # Environment variables
-AUTHORITY = os.getenv("OAUTH_AUTHORITY")
-SCOPE = []
-
-# if SUBFOLDER_PATH does not exist as an environment variable, set it to a static value
-if not os.getenv("SUBFOLDER_PATH"):
-    SUBFOLDER_PATH = os.getenv("SUBFOLDER_PATH")
-else:
-    SUBFOLDER_PATH = "/en/emea/cema/business-card-generator"
-
-# Application (client) ID of app registration
-CLIENT_ID = os.getenv("OAUTH_CLIENT_ID")
-# Application's generated client secret: never check this into source control!
-CLIENT_SECRET = os.getenv("OAUTH_CLIENT_SECRET")
- 
-REDIRECT_PATH = os.getenv("OAUTH_REDIRECT_PATH")  # Used for forming an absolute URL to your redirect URI.
+# if SUBFOLDER_PATH does not exist as an environment variable or if it is a None type, set it to a static value
+SUBFOLDER_PATH = os.getenv("SUBFOLDER_PATH") or "/en/emea/cema/business-card-generator"
 
 # ------------------------------------------------------------------------------
 
 views_bp = Blueprint("views", __name__)
-
-auth = identity.web.Auth(
-    session=session,
-    authority=AUTHORITY,
-    client_id=CLIENT_ID,
-    client_credential=CLIENT_SECRET,
-)
 
 
 def card_params_from_args() -> CardParams:
@@ -57,12 +35,6 @@ def card_params_from_args() -> CardParams:
 @views_bp.get("/")
 @views_bp.get(SUBFOLDER_PATH + "/")
 def get_home() -> str:
-    if not auth.get_user():
-        auth_endpoint = auth.log_in(
-            scopes=SCOPE, # Have user consent to scopes during log-in
-            redirect_uri=url_for("views.auth_response", _external=True), # Optional. If present, this absolute URL must match your app's redirect_uri registered in Microsoft Entra admin center
-        )
-        return redirect(auth_endpoint["auth_uri"])
     return render_template("home.html")
 
 
@@ -144,23 +116,6 @@ def get_mecard_vcf() -> Response:
     )
 
 
-@views_bp.get(REDIRECT_PATH)
-def auth_response():
-    result = auth.complete_log_in(request.args)
-    if "error" in result:
-        return render_template("auth_error.html", result=result)
-    return redirect(url_for("views.get_home"))
-
-
-@views_bp.get("/auth_error")
-def auth_error():
-    return render_template("auth_error.html")
-
-@views_bp.get("/logout")
-@views_bp.get(SUBFOLDER_PATH + "/logout")
-def logout():
-    return redirect(auth.log_out(url_for("views.get_home", _external=True)))
-
 # ------------------------------------------------------------------------------
 
 
@@ -195,10 +150,5 @@ def create_app(env_file: Optional[str] = ".env") -> Flask:
         return None
 
     app.register_blueprint(views_bp, url_prefix="")
-
-    # Tells the Flask-session extension to store sessions in the filesystem
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.secret_key = app.config['SECRET_KEY']
-    Session(app)
 
     return app
