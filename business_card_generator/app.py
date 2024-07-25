@@ -22,6 +22,12 @@ from .settings import Settings
 AUTHORITY = os.getenv("OAUTH_AUTHORITY")
 SCOPE = []
 
+# if SUBFOLDER_PATH does not exist as an environment variable, set it to a static value
+if not os.getenv("SUBFOLDER_PATH"):
+    SUBFOLDER_PATH = os.getenv("SUBFOLDER_PATH")
+else:
+    SUBFOLDER_PATH = "/en/emea/cema/business-card-generator"
+
 # Application (client) ID of app registration
 CLIENT_ID = os.getenv("OAUTH_CLIENT_ID")
 # Application's generated client secret: never check this into source control!
@@ -49,7 +55,7 @@ def card_params_from_args() -> CardParams:
 
 
 @views_bp.get("/")
-@views_bp.get("/en/emea/cema/business-card-generator/")
+@views_bp.get(SUBFOLDER_PATH + "/")
 def get_home() -> str:
     if not auth.get_user():
         auth_endpoint = auth.log_in(
@@ -61,13 +67,13 @@ def get_home() -> str:
 
 
 @views_bp.get("/card")
-@views_bp.get("/en/emea/cema/business-card-generator/card")
+@views_bp.get(SUBFOLDER_PATH + "/card")
 def get_card() -> str:
     return render_template("card.html")
 
 
 @views_bp.get("/vcard.svg")
-@views_bp.get("/en/emea/cema/business-card-generator/vcard.svg")
+@views_bp.get(SUBFOLDER_PATH + "/vcard.svg")
 def get_vcard_svg() -> Response:
     card_params = card_params_from_args()
     vcard = VCard(card_params)
@@ -79,7 +85,7 @@ def get_vcard_svg() -> Response:
 
 
 @views_bp.get("/vcard.png")
-@views_bp.get("/en/emea/cema/business-card-generator/vcard.png")
+@views_bp.get(SUBFOLDER_PATH + "/vcard.png")
 def get_vcard_png() -> Response:
     card_params = card_params_from_args()
     vcard = VCard(card_params)
@@ -91,7 +97,7 @@ def get_vcard_png() -> Response:
 
 
 @views_bp.get("/vcard.vcf")
-@views_bp.get("/en/emea/cema/business-card-generator/vcard.vcf")
+@views_bp.get(SUBFOLDER_PATH + "/vcard.vcf")
 def get_vcard_vcf() -> Response:
     card_params = card_params_from_args()
     vcard = VCard(card_params)
@@ -103,7 +109,7 @@ def get_vcard_vcf() -> Response:
 
 
 @views_bp.get("/mecard.svg")
-@views_bp.get("/en/emea/cema/business-card-generator/mecard.svg")
+@views_bp.get(SUBFOLDER_PATH + "/mecard.svg")
 def get_mecard_svg() -> Response:
     card_params = card_params_from_args()
     mecard = MeCard(card_params)
@@ -115,7 +121,7 @@ def get_mecard_svg() -> Response:
 
 
 @views_bp.get("/mecard.png")
-@views_bp.get("/en/emea/cema/business-card-generator/mecard.png")
+@views_bp.get(SUBFOLDER_PATH + "/mecard.png")
 def get_mecard_png() -> Response:
     card_params = card_params_from_args()
     mecard = MeCard(card_params)
@@ -127,7 +133,7 @@ def get_mecard_png() -> Response:
 
 
 @views_bp.get("/mecard.vcf")
-@views_bp.get("/en/emea/cema/business-card-generator/mecard.vcf")
+@views_bp.get(SUBFOLDER_PATH + "/mecard.vcf")
 def get_mecard_vcf() -> Response:
     card_params = card_params_from_args()
     mecard = MeCard(card_params)
@@ -151,7 +157,7 @@ def auth_error():
     return render_template("auth_error.html")
 
 @views_bp.get("/logout")
-@views_bp.get("/en/emea/cema/business-card-generator/logout")
+@views_bp.get(SUBFOLDER_PATH + "/logout")
 def logout():
     return redirect(auth.log_out(url_for("views.get_home", _external=True)))
 
