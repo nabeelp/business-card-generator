@@ -22,11 +22,8 @@ from .settings import Settings
 AUTHORITY = os.getenv("OAUTH_AUTHORITY")
 SCOPE = []
 
-# if SUBFOLDER_PATH does not exist as an environment variable, set it to a static value
-if not os.getenv("SUBFOLDER_PATH"):
-    SUBFOLDER_PATH = os.getenv("SUBFOLDER_PATH")
-else:
-    SUBFOLDER_PATH = "/en/emea/cema/business-card-generator"
+# if SUBFOLDER_PATH does not exist as an environment variable or if it is a None type, set it to a static value
+SUBFOLDER_PATH = os.getenv("SUBFOLDER_PATH") or "/en/emea/cema/business-card-generator"
 
 # Application (client) ID of app registration
 CLIENT_ID = os.getenv("OAUTH_CLIENT_ID")
